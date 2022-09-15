@@ -1,33 +1,30 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import List from './List'
+import data from './data'
+import Reminder from './models/Reminder'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [people, setPeople] = useState<Reminder[]>(data)
+
+  const handleClear = () => {
+    setPeople([])
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>
+      <div className='bg-pink-400 min-h-screen w-full flex items-center justify-center font-mono p-10'>
+        <div className='p-8 bg-white rounded-lg flex flex-col space-y-10 w-2/5'>
+          <h1 className='text-xl'>{people.length} Birthdays today</h1>
+          <List people={people} />
+          <button
+            onClick={handleClear}
+            className='py-2 px-10 text-white font-medium rounded-sm bg-gradient-to-r from-fuchsia-500 via-pink-500  to-pink-500'
+          >
+            Clear All
+          </button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    </>
   )
 }
 
